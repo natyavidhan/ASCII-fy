@@ -20,17 +20,13 @@ def convert(imagePath, reduce):
         asciiImage += "\n"
     return asciiImage
 
-def toImage(asciiImage):
+def toImage(asciiImage, folderPath):
     img = Image.new("RGB", (len(asciiImage.split("\n")[0]*6), len(asciiImage.split("\n"))*12), "black")
     d1 = ImageDraw.Draw(img)
     font = ImageFont.truetype("Consolas.ttf", 10)
     d1.text((0, 0), asciiImage, font=font, fill=(255, 255, 255))
-    try:
-        img.save("output/ascii.png")
-    except:
-        os.mkdir("output")
-        img.save("output/ascii.png")
-
+    img.save(folderPath + "/ascii.png")
+    open(folderPath + "/ascii.txt", "w").write(asciiImage)
 
 class App:
     def __init__(self, root):
@@ -57,6 +53,15 @@ class App:
         self.outputfolderchooser = ttk.Button(root, text="Choose Output Folder", command=self.chooseOutputFolder)
         self.outputfolderchooser.place(x=350, y=130, width=120, height=20)
         
+        self.imageReduce = tk.IntVar()
+        self.imageReduce.set(1)
+        self.imageReduceInput = ttk.Entry(root, textvariable=self.imageReduce, font=self.font)
+        self.imageReduceInput.place(x=200, y=200, width=30, height=20)
+        self.imageReducelable = tk.Label(root, text="Image Reduction", font=self.font)
+        self.imageReducelable.place(x=30, y=200)
+        
+        self.startButton = ttk.Button(root, text="Start", command=self.start)
+        self.startButton.place(x=200, y=250, width=100, height=30)
     
     def chooseImage(self):
         path = filedialog.askopenfilename(initialdir = "/",title = "Select file",
@@ -68,6 +73,13 @@ class App:
         path = filedialog.askdirectory(initialdir = "/",title = "Select folder")
         if path:
             self.outputfolder.set(path)
+    
+    def start(self):
+        try:
+            asciiImage = convert(self.imagepath.get() , self.imageReduce.get())
+            toImage(asciiImage, self.outputfolder.get())
+        except Exception as e:
+            messagebox.showerror("Error", e)
         
 if __name__ == "__main__":
     root = tk.Tk()
