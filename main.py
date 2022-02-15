@@ -6,27 +6,6 @@ from tkinter import messagebox
 from tkinter.font import Font
 from tkinter import filedialog
 
-def convert(imagePath, reduce):
-    shades = " .:-=+*#%@"
-    img = Image.open(imagePath)
-    img = img.convert("L")
-    asciiImage = ""
-    img = img.resize((img.size[0]//reduce, img.size[1]//reduce))
-    img_width, img_height = img.size
-    for y in range(img_height):
-        for x in range(img_width):
-            pix = img.getpixel((x, y))
-            asciiImage += shades[int((pix/255)*(len(shades)-1))] + " "
-        asciiImage += "\n"
-    return asciiImage
-
-def toImage(asciiImage, folderPath):
-    img = Image.new("RGB", (len(asciiImage.split("\n")[0]*6), len(asciiImage.split("\n"))*12), "black")
-    d1 = ImageDraw.Draw(img)
-    font = ImageFont.truetype("Consolas.ttf", 10)
-    d1.text((0, 0), asciiImage, font=font, fill=(255, 255, 255))
-    img.save(folderPath + "/ascii.png")
-    open(folderPath + "/ascii.txt", "w").write(asciiImage)
 
 class App:
     def __init__(self, root):
@@ -62,6 +41,28 @@ class App:
         
         self.startButton = ttk.Button(root, text="Start", command=self.start)
         self.startButton.place(x=200, y=250, width=100, height=30)
+        
+    def convert(self, imagePath, reduce):
+        shades = " .:-=+*#%@"
+        img = Image.open(imagePath)
+        img = img.convert("L")
+        asciiImage = ""
+        img = img.resize((img.size[0]//reduce, img.size[1]//reduce))
+        img_width, img_height = img.size
+        for y in range(img_height):
+            for x in range(img_width):
+                pix = img.getpixel((x, y))
+                asciiImage += shades[int((pix/255)*(len(shades)-1))] + " "
+            asciiImage += "\n"
+        return asciiImage
+
+    def toImage(self, asciiImage, folderPath):
+        img = Image.new("RGB", (len(asciiImage.split("\n")[0]*6), len(asciiImage.split("\n"))*12), "black")
+        d1 = ImageDraw.Draw(img)
+        font = ImageFont.truetype("Consolas.ttf", 10)
+        d1.text((0, 0), asciiImage, font=font, fill=(255, 255, 255))
+        img.save(folderPath + "/ascii.png")
+        open(folderPath + "/ascii.txt", "w").write(asciiImage)
     
     def chooseImage(self):
         path = filedialog.askopenfilename(initialdir = "/",title = "Select file",
@@ -76,8 +77,8 @@ class App:
     
     def start(self):
         try:
-            asciiImage = convert(self.imagepath.get() , self.imageReduce.get())
-            toImage(asciiImage, self.outputfolder.get())
+            asciiImage = self.convert(self.imagepath.get() , self.imageReduce.get())
+            self.toImage(asciiImage, self.outputfolder.get())
         except Exception as e:
             messagebox.showerror("Error", e)
         
