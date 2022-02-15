@@ -11,7 +11,7 @@ class App:
     def __init__(self, root):
         root.title("ASCII-fy")
         width = 500
-        height = 475
+        height = 300
         screenwidth = root.winfo_screenwidth()
         screenheight = root.winfo_screenheight()
         alignstr = '%dx%d+%d+%d' % (width, height,
