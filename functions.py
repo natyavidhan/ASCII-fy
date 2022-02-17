@@ -5,15 +5,15 @@ def convert(imagePath: str, reduce: float) -> str:
     shades = " .:-=+*#%@"
     img = Image.open(imagePath)
     img = img.convert("L")
-    asciiImage = ""
+    asciiImage = []
     img = img.resize((img.size[0] // reduce, img.size[1] // reduce))
     img_width, img_height = img.size
     for y in range(img_height):
         for x in range(img_width):
             pix = img.getpixel((x, y))
-            asciiImage += shades[int((pix / 255) * (len(shades) - 1))] + " "
-        asciiImage += "\n"
-    return asciiImage
+            asciiImage.append(shades[round((pix / 255) * (len(shades) - 1))] + " ")
+        asciiImage.append("\n")
+    return "".join(asciiImage)
 
 def toImage(asciiImage: str, folderPath: str) -> None:
     img = Image.new(
