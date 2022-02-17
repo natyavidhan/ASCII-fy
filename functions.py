@@ -1,7 +1,17 @@
 from PIL import Image, ImageDraw, ImageFont
 from datetime import datetime
 
+
 def convert(imagePath: str, reduce: float) -> str:
+    '''
+    Convert an image to ASCII art
+    
+    :param imagePath: The path to the image you want to convert
+    :type imagePath: str
+    :param reduce: The amount by which the image is reduced
+    :type reduce: float
+    :return: A string of characters representing the image.
+    '''
     shades = " .:-=+*#%@"
     img = Image.open(imagePath)
     img = img.convert("L")
@@ -15,7 +25,16 @@ def convert(imagePath: str, reduce: float) -> str:
         asciiImage.append("\n")
     return "".join(asciiImage)
 
+
 def toImage(asciiImage: str, folderPath: str) -> None:
+    '''
+    Converts an ASCII art image to a PNG image
+    
+    :param asciiImage: The ascii image to be converted to an image
+    :type asciiImage: str
+    :param folderPath: The path to the folder where the image will be saved
+    :type folderPath: str
+    '''
     img = Image.new(
         "RGB",
         (len(asciiImage.split("\n")[0] * 6), len(asciiImage.split("\n")) * 12),
@@ -27,4 +46,3 @@ def toImage(asciiImage: str, folderPath: str) -> None:
     date = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     img.save(folderPath + f"/ascii ({date}).png")
     open(folderPath + f"/ascii ({date}).txt", "w").write(asciiImage)
-    

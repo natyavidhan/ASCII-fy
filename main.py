@@ -7,6 +7,7 @@ from tkinter import filedialog
 from functions import convert, toImage
 import traceback
 
+
 class App:
     def __init__(self, root):
         root.title("ASCII-fy")
