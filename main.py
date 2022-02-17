@@ -81,6 +81,7 @@ class App:
         try:
             asciiImage = convert(self.imagepath.get(), self.imageReduce.get())
             toImage(asciiImage, self.outputfolder.get())
+            messagebox.showinfo("Success", "Conversion successful")
         except Exception as e:
             error = traceback.format_exc()
             messagebox.showerror("Error", error)
