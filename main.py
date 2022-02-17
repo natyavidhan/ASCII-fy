@@ -5,6 +5,7 @@ from tkinter import messagebox
 from tkinter.font import Font
 from tkinter import filedialog
 from functions import convert, toImage
+import traceback
 
 class App:
     def __init__(self, root):
@@ -81,7 +82,8 @@ class App:
             asciiImage = convert(self.imagepath.get(), self.imageReduce.get())
             toImage(asciiImage, self.outputfolder.get())
         except Exception as e:
-            messagebox.showerror("Error", e)
+            error = traceback.format_exc()
+            messagebox.showerror("Error", error)
 
 
 if __name__ == "__main__":
