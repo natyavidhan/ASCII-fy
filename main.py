@@ -23,32 +23,32 @@ class App:
                             font=("Consolas", 30), fg="black")
         applabel.place(x=90, y=26)
         self.imagepath = tk.StringVar()
-        self.imagepathinput = ttk.Entry(
+        imagepathinput = ttk.Entry(
             root, textvariable=self.imagepath, font=self.font)
-        self.imagepathinput.place(x=30, y=90, width=312, height=20)
-        self.imagepathchooser = ttk.Button(
+        imagepathinput.place(x=30, y=90, width=312, height=20)
+        imagepathchooser = ttk.Button(
             root, text="Choose Image", command=self.chooseImage)
-        self.imagepathchooser.place(x=350, y=90, width=120, height=20)
+        imagepathchooser.place(x=350, y=90, width=120, height=20)
 
         self.outputfolder = tk.StringVar()
-        self.outputfolderinput = ttk.Entry(
+        outputfolderinput = ttk.Entry(
             root, textvariable=self.outputfolder, font=self.font)
-        self.outputfolderinput.place(x=30, y=130, width=312, height=20)
-        self.outputfolderchooser = ttk.Button(
+        outputfolderinput.place(x=30, y=130, width=312, height=20)
+        outputfolderchooser = ttk.Button(
             root, text="Choose Output Folder", command=self.chooseOutputFolder)
-        self.outputfolderchooser.place(x=350, y=130, width=120, height=20)
+        outputfolderchooser.place(x=350, y=130, width=120, height=20)
 
         self.imageReduce = tk.IntVar()
         self.imageReduce.set(1)
-        self.imageReduceInput = ttk.Entry(
+        imageReduceInput = ttk.Entry(
             root, textvariable=self.imageReduce, font=self.font)
-        self.imageReduceInput.place(x=200, y=200, width=30, height=20)
-        self.imageReducelable = tk.Label(
+        imageReduceInput.place(x=200, y=200, width=30, height=20)
+        imageReducelable = tk.Label(
             root, text="Image Reduction", font=self.font)
-        self.imageReducelable.place(x=30, y=200)
+        imageReducelable.place(x=30, y=200)
 
-        self.startButton = ttk.Button(root, text="Start", command=self.start)
-        self.startButton.place(x=200, y=250, width=100, height=30)
+        startButton = ttk.Button(root, text="Start", command=self.start)
+        startButton.place(x=200, y=250, width=100, height=30)
 
     def convert(self, imagePath, reduce):
         shades = " .:-=+*#%@"
