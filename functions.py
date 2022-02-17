@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 from datetime import datetime
 
-def convert(imagePath, reduce):
+def convert(imagePath: str, reduce: float) -> str:
     shades = " .:-=+*#%@"
     img = Image.open(imagePath)
     img = img.convert("L")
@@ -15,7 +15,7 @@ def convert(imagePath, reduce):
         asciiImage += "\n"
     return asciiImage
 
-def toImage(asciiImage, folderPath):
+def toImage(asciiImage: str, folderPath: str) -> None:
     img = Image.new(
         "RGB",
         (len(asciiImage.split("\n")[0] * 6), len(asciiImage.split("\n")) * 12),
