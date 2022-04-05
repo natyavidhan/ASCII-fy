@@ -61,7 +61,7 @@ class App:
         startButton.place(x=200, y=250, width=100, height=30)
 
     def chooseImage(self):
-        path = filedialog.askopenfilename(
+        if path := filedialog.askopenfilename(
             initialdir="/",
             title="Select file",
             filetypes=(
@@ -69,13 +69,11 @@ class App:
                 ("jpeg files", "*.jpg"),
                 ("all files", "*.*"),
             ),
-        )
-        if path:
+        ):
             self.imagepath.set(path)
 
     def chooseOutputFolder(self):
-        path = filedialog.askdirectory(initialdir="/", title="Select folder")
-        if path:
+        if path := filedialog.askdirectory(initialdir="/", title="Select folder"):
             self.outputfolder.set(path)
 
     def start(self):

@@ -44,5 +44,5 @@ def toImage(asciiImage: str, folderPath: str) -> None:
     font = ImageFont.truetype("Consolas.ttf", 10)
     d1.text((0, 0), asciiImage, font=font, fill=(255, 255, 255))
     date = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    img.save(folderPath + f"/ascii ({date}).png")
-    open(folderPath + f"/ascii ({date}).txt", "w").write(asciiImage)
+    img.save(f"{folderPath}/ascii ({date}).png")
+    open(f"{folderPath}/ascii ({date}).txt", "w").write(asciiImage)
